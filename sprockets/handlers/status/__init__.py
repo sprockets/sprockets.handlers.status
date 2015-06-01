@@ -9,9 +9,10 @@ import pkg_resources
 __version__ = '0.1.0'
 
 UNKNOWN = 'unknown'
-APPLICATION = UNKNOWN
 MAINTENANCE = 'maintenance'
 OK = 'ok'
+
+APPLICATION = UNKNOWN
 
 
 def set_application(name):
@@ -29,7 +30,6 @@ class StatusHandler(object):
     about the current service
 
     """
-    application = 'unknown'
 
     def get(self, *args, **kwargs):
         """Tornado RequestHandler GET request endpoint for reporting status
