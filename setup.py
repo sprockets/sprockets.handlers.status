@@ -9,7 +9,7 @@ if sys.version_info < (3, 0):
 
 setuptools.setup(
     name='sprockets.handlers.status',
-    version='0.1.0',
+    version='0.1.1',
     description='A small handler for reporting application status',
     long_description=open('test-requirements.txt', 'r').read(),
     url='https://github.com/sprockets/sprockets.handlers.status',
@@ -39,6 +39,7 @@ setuptools.setup(
               'sprockets.handlers.status'],
     package_data={'': ['LICENSE', 'README.md', 'test-requirements.txt']},
     include_package_data=True,
+    install_requires=['tornado'],
     namespace_packages=['sprockets',
                         'sprockets.handlers'],
     tests_require=tests_require,

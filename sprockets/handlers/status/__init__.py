@@ -6,7 +6,9 @@ A small handler for reporting application status
 """
 import pkg_resources
 
-__version__ = '0.1.0'
+from tornado import web
+
+__version__ = '0.1.1'
 
 UNKNOWN = 'unknown'
 MAINTENANCE = 'maintenance'
@@ -25,7 +27,7 @@ def set_application(name):
     APPLICATION = name
 
 
-class StatusHandler(object):
+class StatusHandler(web.RequestHandler):
     """Implement a status handler endpoint that can be used to get information
     about the current service
 
