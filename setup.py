@@ -1,11 +1,4 @@
 import setuptools
-import sys
-
-tests_require = [line.strip() for line in open('test-requirements.txt', 'r')]
-if sys.version_info < (2, 7):
-    tests_require.append('unittest2')
-if sys.version_info < (3, 0):
-    tests_require.append('mock')
 
 setuptools.setup(
     name='sprockets.handlers.status',
@@ -37,10 +30,9 @@ setuptools.setup(
     packages=['sprockets',
               'sprockets.handlers',
               'sprockets.handlers.status'],
-    package_data={'': ['LICENSE', 'README.md', 'test-requirements.txt']},
+    package_data={'': ['LICENSE', 'README.md']},
     include_package_data=True,
     install_requires=['tornado'],
     namespace_packages=['sprockets',
                         'sprockets.handlers'],
-    tests_require=tests_require,
     zip_safe=False)
