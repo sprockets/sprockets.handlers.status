@@ -8,10 +8,15 @@ except ImportError:
     import unittest
 import uuid
 
+import mock
+
 from sprockets.handlers import status
 
+
 class MockApplication(object):
-    pass
+    ui_methods = {}
+    ui_modules = {}
+
 
 
 class TestSetApplication(unittest.TestCase):
@@ -35,35 +40,34 @@ class TestStatusHandlerPackageVersion(unittest.TestCase):
                          status.UNKNOWN)
 
 
-class TestStatusHandlerStatusAttribute(unittest.TestCase):
+class TestCase(unittest.TestCase):
+
+    @mock.patch('tornado.httputil.HTTPServerRequest')
+    def setUp(self, request):
+        self.application = MockApplication()
+        self.request = request
+        self.obj = status.StatusHandler(self.application, self.request)
+
+
+class TestStatusHandlerStatusAttribute(TestCase):
 
     def test_when_status_is_not_set(self):
-        obj = status.StatusHandler()
-        obj.application = MockApplication()
-        self.assertEqual(obj._application_status(), status.OK)
+        self.assertEqual(self.obj._application_status(), status.OK)
 
     def test_when_status_is_set_to_maintenance(self):
-        obj = status.StatusHandler()
-        obj.application = MockApplication()
-        setattr(obj.application, 'status', status.MAINTENANCE)
-        self.assertEqual(obj._application_status(), status.MAINTENANCE)
+        setattr(self.application, 'status', status.MAINTENANCE)
+        self.assertEqual(self.obj._application_status(), status.MAINTENANCE)
 
 
-class TestStatusHandlerResponseCodes(unittest.TestCase):
+class TestStatusHandlerResponseCodes(TestCase):
 
     def test_when_status_is_not_set(self):
-        obj = status.StatusHandler()
-        obj.application = MockApplication()
-        self.assertEqual(obj._status_response_code(), 200)
+        self.assertEqual(self.obj._status_response_code(), 200)
 
     def test_when_status_is_set_to_maintenance(self):
-        obj = status.StatusHandler()
-        obj.application = MockApplication()
-        setattr(obj.application, 'status', status.MAINTENANCE)
-        self.assertEqual(obj._status_response_code(), 503)
+        setattr(self.application, 'status', status.MAINTENANCE)
+        self.assertEqual(self.obj._status_response_code(), 503)
 
     def test_when_status_is_set_to_error(self):
-        obj = status.StatusHandler()
-        obj.application = MockApplication()
-        setattr(obj.application, 'status','error')
-        self.assertEqual(obj._status_response_code(), 500)
+        setattr(self.application, 'status','error')
+        self.assertEqual(self.obj._status_response_code(), 500)
