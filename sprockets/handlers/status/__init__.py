@@ -4,11 +4,12 @@ sprockets.handlers.status
 A small handler for reporting application status
 
 """
+
 import pkg_resources
 
 from tornado import web
 
-__version__ = '0.1.1'
+__version__ = '0.1.2'
 
 UNKNOWN = 'unknown'
 MAINTENANCE = 'maintenance'
