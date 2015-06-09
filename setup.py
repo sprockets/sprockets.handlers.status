@@ -1,10 +1,11 @@
+import codecs
 import setuptools
 
 setuptools.setup(
     name='sprockets.handlers.status',
     version='0.1.2',
     description='A small handler for reporting application status',
-    long_description=open('test-requirements.txt', 'r').read(),
+    long_description=codecs.open('README.rst', 'r', 'utf8').read(),
     url='https://github.com/sprockets/sprockets.handlers.status',
     author='AWeber Communications',
     author_email='api@aweber.com',
